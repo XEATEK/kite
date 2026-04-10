@@ -65,11 +65,11 @@ func (h *EventListenerHandler) HandleEventListenerCreate(c *handler.Context, req
 		Source:        model.EventSource(req.Source),
 		Type:          model.EventListenerType(eventFlow.EventListenerType()),
 		Description:   eventFlow.EventDescription(),
-		// TODO: Filter:        eventFlow.EventListenerFilter(),
-		FlowSource: req.FlowSource,
-		Enabled:    req.Enabled,
-		CreatedAt:  time.Now().UTC(),
-		UpdatedAt:  time.Now().UTC(),
+		Filter:        eventFlow.EventListenerFilter(),
+		FlowSource:    req.FlowSource,
+		Enabled:       req.Enabled,
+		CreatedAt:     time.Now().UTC(),
+		UpdatedAt:     time.Now().UTC(),
 	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to create event listener: %w", err)
@@ -107,11 +107,12 @@ func (h *EventListenerHandler) HandleEventListenersImport(c *handler.Context, re
 			Source:        model.EventSource(listener.Source),
 			Type:          model.EventListenerType(eventFlow.EventListenerType()),
 			Description:   eventFlow.EventDescription(),
-			// TODO: Filter:        eventFlow.EventListenerFilter(),
-			FlowSource: listener.FlowSource,
-			Enabled:    listener.Enabled,
-			CreatedAt:  time.Now().UTC(),
-			UpdatedAt:  time.Now().UTC(),
+
+			Filter:      eventFlow.EventListenerFilter(),
+			FlowSource:  listener.FlowSource,
+			Enabled:     listener.Enabled,
+			CreatedAt:   time.Now().UTC(),
+			UpdatedAt:   time.Now().UTC(),
 		})
 		if err != nil {
 			return nil, fmt.Errorf("failed to create event listener: %w", err)
@@ -129,19 +130,18 @@ func (h *EventListenerHandler) HandleEventListenerUpdate(c *handler.Context, req
 		return nil, fmt.Errorf("failed to compile event listener: %w", err)
 	}
 
-	eventListener, err := h.eventListenerStore.UpdateEventListener(c.Context(), &model.EventListener{
+	eventListener := &model.EventListener{
 		ID:          c.EventListener.ID,
 		Type:        model.EventListenerType(eventFlow.EventListenerType()),
 		Description: eventFlow.EventDescription(),
-		// TODO: Filter:      eventFlow.EventListenerFilter(),
-		FlowSource: req.FlowSource,
-		Enabled:    req.Enabled,
-		UpdatedAt:  time.Now().UTC(),
-	})
+		FlowSource:  req.FlowSource,
+		Enabled:     req.Enabled,
+		Filter:      eventFlow.EventListenerFilter(),
+		UpdatedAt:   time.Now().UTC(),
+	}
+
+	eventListener, err = h.eventListenerStore.UpdateEventListener(c.Context(), eventListener)
 	if err != nil {
-		if errors.Is(err, store.ErrNotFound) {
-			return nil, handler.ErrNotFound("unknown_event_listener", "Event listener not found")
-		}
 		return nil, fmt.Errorf("failed to update event listener: %w", err)
 	}
 

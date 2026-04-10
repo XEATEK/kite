@@ -421,67 +421,36 @@ func (n *CompiledFlowNode) CommandIntegrations() []discord.ApplicationIntegratio
 }
 
 func (n *CompiledFlowNode) EventListenerType() string {
-	if !n.IsEventListenerEntry() {
+	if n.Type != FlowNodeTypeEntryEvent {
 		return ""
 	}
-	return n.Data.EventType
-}
-
-func (n *CompiledFlowNode) FilterEvent(ctx *FlowContext) (bool, error) {
-	if len(n.Parents.Default) == 0 {
-		return true, nil
-	}
-
-	for _, node := range n.Parents.Default {
-		if node.IsEventFilter() {
-			var target string
-
-			switch node.Data.EventFilterTarget {
-			case EventFilterTypeMessageContent:
-				if msg, ok := ctx.Data.Event().(*gateway.MessageCreateEvent); ok {
-					target = msg.Content
-				}
-			case EventFilterTypeUserID:
-				target = ctx.Data.UserID().String()
-			case EventFilterTypeGuildID:
-				target = ctx.Data.GuildID().String()
-			case EventFilterTypeChannelID:
-				target = ctx.Data.ChannelID().String()
-			}
-
-			switch node.Data.EventFilterMode {
-			case ComparsionModeEqual:
-				if target != node.Data.EventFilterValue {
-					return false, nil
-				}
-			case ComparsionModeNotEqual:
-				if target == node.Data.EventFilterValue {
-					return false, nil
-				}
-			case ComparsionModeContains:
-				if !strings.Contains(target, node.Data.EventFilterValue) {
-					return false, nil
-				}
-			case ComparsionModeStartsWith:
-				if !strings.HasPrefix(target, node.Data.EventFilterValue) {
-					return false, nil
-				}
-			case ComparsionModeEndsWith:
-				if !strings.HasSuffix(target, node.Data.EventFilterValue) {
-					return false, nil
-				}
-			}
-		}
-	}
-
-	return true, nil
+	return n.Data["event_type"].(string)
 }
 
 func (n *CompiledFlowNode) EventDescription() string {
-	if !n.IsEventListenerEntry() {
+	if n.Type != FlowNodeTypeEntryEvent {
 		return ""
 	}
-	return n.Data.Description
+	return n.Data["description"].(string)
+}
+
+func (n *CompiledFlowNode) EventListenerFilter() *model.EventListenerFilter {
+	if n.Type != FlowNodeTypeEntryEvent {
+		return nil
+	}
+
+	filter := &model.EventListenerFilter{}
+	if emoji, ok := n.Data["emoji"].(string); ok && emoji != "" {
+		filter.MessageReaction = &model.EventListenerFilterMessageReaction{
+			Emoji: emoji,
+		}
+	}
+
+	if filter.MessageReaction == nil {
+		return nil
+	}
+
+	return filter
 }
 
 func (n *CompiledFlowNode) IsAction() bool {

@@ -46,7 +46,6 @@ func (l *EventListener) HandleEvent(appID string, session *state.State, event ga
 		EventListenerID: null.NewString(l.listener.ID, true),
 	}
 
-	// TODO: check listener specific filters as well
 	if !l.shouldHandleEvent(event) {
 		return
 	}
@@ -66,10 +65,10 @@ func (l *EventListener) shouldHandleEvent(e ws.Event) bool {
 	if l.listener.Filter != nil {
 		if l.listener.Filter.MessageReaction != nil {
 			if reaction, ok := e.(*gateway.MessageReactionAddEvent); ok {
-				return reaction.Emoji.APIString() == l.listener.Filter.MessageReaction.Emoji
+				return string(reaction.Emoji.APIString()) == l.listener.Filter.MessageReaction.Emoji
 			}
 			if reaction, ok := e.(*gateway.MessageReactionRemoveEvent); ok {
-				return reaction.Emoji.APIString() == l.listener.Filter.MessageReaction.Emoji
+				return string(reaction.Emoji.APIString()) == l.listener.Filter.MessageReaction.Emoji
 			}
 		}
 	}
