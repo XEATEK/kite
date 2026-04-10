@@ -1,10 +1,10 @@
 # 🪁 Kite
 
-[![Release](https://github.com/merlinfuchs/kite/actions/workflows/release.yaml/badge.svg)](https://github.com/merlinfuchs/kite/releases)
-[![Docker image](https://github.com/merlinfuchs/kite/actions/workflows/docker-push.yaml/badge.svg)](https://hub.docker.com/r/merlintor/kite)
+[![Release](https://github.com/XEATEK/kite/actions/workflows/release.yaml/badge.svg)](https://github.com/XEATEK/kite/releases)
+[![Docker image](https://github.com/XEATEK/kite/actions/workflows/docker-push.yaml/badge.svg)](https://hub.docker.com/r/merlintor/kite)
 
-[![Release](https://img.shields.io/github/v/release/merlinfuchs/kite)](https://github.com/merlinfuchs/kite/releases/latest)
-[![MIT License](https://img.shields.io/github/license/merlinfuchs/kite)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/XEATEK/kite)](https://github.com/XEATEK/kite/releases/latest)
+[![MIT License](https://img.shields.io/github/license/XEATEK/kite)](LICENSE)
 [![Discord Server](https://img.shields.io/discord/845800518458540083)](https://discord.gg/rNd9jWHnXh)
 
 Make your own Discord Bot with Kite for free without a single line of code. With support for slash commands, buttons, events,and more.
@@ -17,7 +17,7 @@ This project is very much work in progress and doesn't have all the features yet
 
 This describes the easiest way to self host an instance of Kite by using a single binary that contains both the backend and frontend.
 
-You can find prebuilt binaries of the server with the frontend files included [here](https://github.com/merlinfuchs/kite/releases/latest).
+You can find prebuilt binaries of the server with the frontend files included [here](https://github.com/XEATEK/kite/releases/latest).
 
 To run Kite you will also need to run a [Postgres](https://www.postgresql.org/) server alongside it, so it's recommended to use `docker-compose` to simplify the process.
 

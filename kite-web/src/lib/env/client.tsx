@@ -5,7 +5,7 @@ export const clientEnvSchema = z.object({
   NEXT_PUBLIC_DOCS_LINK: z.string().default("http://localhost:4000"),
   NEXT_PUBLIC_GITHUB_LINK: z
     .string()
-    .default("https://github.com/merlinfuchs/kite"),
+    .default("https://github.com/XEATEK/kite"),
   NEXT_PUBLIC_DISCORD_LINK: z.string().default("https://discord.gg"),
   NEXT_PUBLIC_CONTACT_EMAIL: z.string().default("contact@kite.onl"),
 });

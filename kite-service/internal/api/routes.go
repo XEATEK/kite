@@ -26,7 +26,7 @@ import (
 	"github.com/kitecloud/kite/kite-service/internal/store"
 	"github.com/kitecloud/kite/kite-service/internal/util"
 	"github.com/kitecloud/kite/kite-service/pkg/plugin"
-	kiteweb "github.com/merlinfuchs/kite/kite-web"
+	kiteweb "github.com/XEATEK/kite/kite-web"
 )
 
 func (s *APIServer) RegisterRoutes(

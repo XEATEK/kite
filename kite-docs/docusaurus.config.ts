@@ -16,7 +16,7 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "merlinfuchs", // Usually your GitHub org/user name.
+  organizationName: "XEATEK", // Usually your GitHub org/user name.
   projectName: "kite", // Usually your repo name.
 
   onBrokenLinks: "throw",
@@ -43,13 +43,13 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           routeBasePath: "/",
-          editUrl: "https://github.com/merlinfuchs/kite/tree/main/kite-docs/",
+          editUrl: "https://github.com/XEATEK/kite/tree/main/kite-docs/",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/merlinfuchs/kite/tree/main/kite-docs/",
+          editUrl: "https://github.com/XEATEK/kite/tree/main/kite-docs/",
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -76,7 +76,7 @@ const config: Config = {
         },
         { to: "/blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/merlinfuchs/kite",
+          href: "https://github.com/XEATEK/kite",
           label: "GitHub",
           position: "right",
         },
@@ -112,7 +112,7 @@ const config: Config = {
             },
             {
               label: "GitHub",
-              href: "https://github.com/merlinfuchs/kite",
+              href: "https://github.com/XEATEK/kite",
             },
           ],
         },

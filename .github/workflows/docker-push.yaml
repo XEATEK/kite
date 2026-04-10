@@ -39,5 +39,5 @@ jobs:
           tags: |
             merlintor/kite:latest
             merlintor/kite:${{ github.ref_name }}
-            ghcr.io/merlinfuchs/kite:latest
-            ghcr.io/merlinfuchs/kite:${{ github.ref_name }}
+            ghcr.io/XEATEK/kite:latest
+            ghcr.io/XEATEK/kite:${{ github.ref_name }}
