@@ -63,6 +63,17 @@ func (l *EventListener) HandleEvent(appID string, session *state.State, event ga
 }
 
 func (l *EventListener) shouldHandleEvent(e ws.Event) bool {
+	if l.listener.Filter != nil {
+		if l.listener.Filter.MessageReaction != nil {
+			if reaction, ok := e.(*gateway.MessageReactionAddEvent); ok {
+				return reaction.Emoji.APIString() == l.listener.Filter.MessageReaction.Emoji
+			}
+			if reaction, ok := e.(*gateway.MessageReactionRemoveEvent); ok {
+				return reaction.Emoji.APIString() == l.listener.Filter.MessageReaction.Emoji
+			}
+		}
+	}
+
 	switch d := e.(type) {
 	case *gateway.MessageCreateEvent:
 		// TODO?: It would be better if we check if the author is specifically the current app
@@ -74,6 +85,10 @@ func (l *EventListener) shouldHandleEvent(e ws.Event) bool {
 	case *gateway.GuildMemberAddEvent:
 		return true
 	case *gateway.GuildMemberRemoveEvent:
+		return true
+	case *gateway.MessageReactionAddEvent:
+		return true
+	case *gateway.MessageReactionRemoveEvent:
 		return true
 	}
 

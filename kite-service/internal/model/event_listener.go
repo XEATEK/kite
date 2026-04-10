@@ -23,6 +23,8 @@ const (
 	EventListenerTypeDiscordMessageDelete     EventListenerType = "message_delete"
 	EventListenerTypeDiscordGuildMemberAdd    EventListenerType = "guild_member_add"
 	EventListenerTypeDiscordGuildMemberRemove EventListenerType = "guild_member_remove"
+	EventListenerTypeDiscordMessageReactionAdd    EventListenerType = "message_reaction_add"
+	EventListenerTypeDiscordMessageReactionRemove EventListenerType = "message_reaction_remove"
 )
 
 func EventTypeFromDiscordEventType(eventType ws.EventType) EventListenerType {
@@ -44,4 +46,10 @@ type EventListener struct {
 	UpdatedAt     time.Time
 }
 
-type EventListenerFilter struct{}
+type EventListenerFilter struct {
+	MessageReaction *EventListenerFilterMessageReaction `json:"message_reaction,omitempty"`
+}
+
+type EventListenerFilterMessageReaction struct {
+	Emoji string `json:"emoji,omitempty"`
+}
