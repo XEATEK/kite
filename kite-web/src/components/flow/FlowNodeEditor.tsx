@@ -690,6 +690,8 @@ function EventTypeInput({ data, updateData, errors }: InputProps) {
         { value: "message_create", label: "Message Create" },
         { value: "message_update", label: "Message Update" },
         { value: "message_delete", label: "Message Delete" },
+        { value: "message_reaction_add", label: "Message Reaction Add" },
+        { value: "message_reaction_remove", label: "Message Reaction Remove" },
         { value: "guild_member_add", label: "Server Member Add" },
         { value: "guild_member_remove", label: "Server Member Remove" },
       ]}

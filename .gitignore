@@ -2,3 +2,4 @@
 vendor
 kite.toml
 docker-compose.yaml
+logs
