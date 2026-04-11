@@ -4,6 +4,7 @@ go 1.24
 
 require (
 	github.com/NdoleStudio/lemonsqueezy-go v1.2.4
+	github.com/XEATEK/kite/kite-web v0.0.0
 	github.com/cyrusaf/ctxlog v1.3.2
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/diamondburned/arikawa/v3 v3.4.0
@@ -23,7 +24,6 @@ require (
 	github.com/knadh/koanf/v2 v2.1.1
 	github.com/lib/pq v1.10.9
 	github.com/matoous/go-nanoid/v2 v2.1.0
-	github.com/XEATEK/kite/kite-web v0.0.0
 	github.com/minio/minio-go/v7 v7.0.76
 	github.com/openai/openai-go v1.10.3
 	github.com/pelletier/go-toml/v2 v2.2.2
