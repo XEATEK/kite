@@ -95,6 +95,7 @@ const intputs: Record<string, any> = {
   command_integrations: CommandIntegrationsInput,
   command_permissions: CommandPermissionsInput,
   event_type: EventTypeInput,
+  emoji: EventEmojiInput,
   event_filter_target: EventFilterTargetInput,
   event_filter_mode: EventFilterModeInput,
   event_filter_value: EventFilterValueInput,
@@ -697,6 +698,26 @@ function EventTypeInput({ data, updateData, errors }: InputProps) {
       ]}
       value={data.event_type || ""}
       updateValue={(v) => updateData({ event_type: v || undefined })}
+      errors={errors}
+    />
+  );
+}
+
+function EventEmojiInput({ data, updateData, errors }: InputProps) {
+  if (
+    data.event_type !== "message_reaction_add" &&
+    data.event_type !== "message_reaction_remove"
+  ) {
+    return null;
+  }
+
+  return (
+    <BaseInput
+      field="emoji"
+      title="Reaction Emoji"
+      placeholder="👍"
+      value={data.emoji?.toString() || ""}
+      updateValue={(v) => updateData({ emoji: v || undefined })}
       errors={errors}
     />
   );

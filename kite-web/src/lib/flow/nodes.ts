@@ -116,7 +116,7 @@ export const nodeTypes: Record<string, NodeValues> = {
     defaultDescription:
       "Listens for an event to trigger the flow. Drop different actions here!",
     dataSchema: nodeEntryEventDataSchema,
-    dataFields: ["event_type", "description"],
+    dataFields: ["event_type", "description", "emoji"],
     fixed: true,
   },
   entry_component_button: {

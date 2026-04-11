@@ -115,6 +115,7 @@ export const nodeOptionEventFilterSchema = nodeBaseDataSchema.extend({
 
 export const nodeEntryEventDataSchema = nodeBaseDataSchema.extend({
   event_type: z.string(),
+  emoji: z.string().optional(),
 });
 
 export const nodeEntryComponentButtonDataSchema = nodeBaseDataSchema.extend({});

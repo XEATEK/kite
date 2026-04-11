@@ -232,6 +232,7 @@ type EventEnv struct {
 	Channel *SnowflakeEnv `expr:"channel" json:"channel"`
 	Message *MessageEnv   `expr:"message" json:"message"`
 	Guild   *SnowflakeEnv `expr:"guild" json:"guild"`
+	Emoji   string        `expr:"emoji" json:"emoji"`
 }
 
 func NewEventEnv(event ws.Event) *EventEnv {
@@ -282,6 +283,24 @@ func NewEventEnv(event ws.Event) *EventEnv {
 		env.User = NewUserEnv(e.User)
 		env.Member = env.User
 		env.Guild = NewSnowflakeEnv(e.GuildID)
+	case *gateway.MessageReactionAddEvent:
+		if e.Member != nil {
+			env.Member = NewMemberEnv(*e.Member)
+			env.User = env.Member
+		}
+		env.Channel = NewSnowflakeEnv(e.ChannelID)
+		if e.GuildID != 0 {
+			env.Guild = NewSnowflakeEnv(e.GuildID)
+		}
+		env.Message = NewMessageEnv(discord.Message{ID: e.MessageID})
+		env.Emoji = string(e.Emoji.APIString())
+	case *gateway.MessageReactionRemoveEvent:
+		env.Channel = NewSnowflakeEnv(e.ChannelID)
+		if e.GuildID != 0 {
+			env.Guild = NewSnowflakeEnv(e.GuildID)
+		}
+		env.Message = NewMessageEnv(discord.Message{ID: e.MessageID})
+		env.Emoji = string(e.Emoji.APIString())
 	}
 
 	return env
@@ -303,6 +322,7 @@ func NewContextFromEvent(event ws.Event, session *state.State) Context {
 			"guild":   NewEventEnv(event).Guild,
 			"server":  NewEventEnv(event).Guild,
 			"message": NewEventEnv(event).Message,
+			"emoji":   NewEventEnv(event).Emoji,
 			"app":     NewAppEnv(session),
 		},
 	}
