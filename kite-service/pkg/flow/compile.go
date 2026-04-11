@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/diamondburned/arikawa/v3/discord"
-	"github.com/diamondburned/arikawa/v3/gateway"
 	"github.com/diamondburned/arikawa/v3/utils/json/option"
 )
 
@@ -420,29 +419,37 @@ func (n *CompiledFlowNode) CommandIntegrations() []discord.ApplicationIntegratio
 	return res
 }
 
+type EventListenerFilter struct {
+	MessageReaction *EventListenerFilterMessageReaction `json:"message_reaction,omitempty"`
+}
+
+type EventListenerFilterMessageReaction struct {
+	Emoji string `json:"emoji,omitempty"`
+}
+
 func (n *CompiledFlowNode) EventListenerType() string {
 	if n.Type != FlowNodeTypeEntryEvent {
 		return ""
 	}
-	return n.Data["event_type"].(string)
+	return n.Data.EventType
 }
 
 func (n *CompiledFlowNode) EventDescription() string {
 	if n.Type != FlowNodeTypeEntryEvent {
 		return ""
 	}
-	return n.Data["description"].(string)
+	return n.Data.Description
 }
 
-func (n *CompiledFlowNode) EventListenerFilter() *model.EventListenerFilter {
+func (n *CompiledFlowNode) EventListenerFilter() *EventListenerFilter {
 	if n.Type != FlowNodeTypeEntryEvent {
 		return nil
 	}
 
-	filter := &model.EventListenerFilter{}
-	if emoji, ok := n.Data["emoji"].(string); ok && emoji != "" {
-		filter.MessageReaction = &model.EventListenerFilterMessageReaction{
-			Emoji: emoji,
+	filter := &EventListenerFilter{}
+	if n.Data.Emoji != "" {
+		filter.MessageReaction = &EventListenerFilterMessageReaction{
+			Emoji: n.Data.Emoji,
 		}
 	}
 

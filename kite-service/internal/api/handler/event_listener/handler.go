@@ -17,6 +17,20 @@ type EventListenerHandler struct {
 	eventListenerStore store.EventListenerStore
 }
 
+func convertEventListenerFilter(filter *flow.EventListenerFilter) *model.EventListenerFilter {
+	if filter == nil {
+		return nil
+	}
+
+	res := &model.EventListenerFilter{}
+	if filter.MessageReaction != nil {
+		res.MessageReaction = &model.EventListenerFilterMessageReaction{
+			Emoji: filter.MessageReaction.Emoji,
+		}
+	}
+	return res
+}
+
 func NewEventListenerHandler(eventListenerStore store.EventListenerStore) *EventListenerHandler {
 	return &EventListenerHandler{
 		eventListenerStore: eventListenerStore,
@@ -65,7 +79,7 @@ func (h *EventListenerHandler) HandleEventListenerCreate(c *handler.Context, req
 		Source:        model.EventSource(req.Source),
 		Type:          model.EventListenerType(eventFlow.EventListenerType()),
 		Description:   eventFlow.EventDescription(),
-		Filter:        eventFlow.EventListenerFilter(),
+		Filter:        convertEventListenerFilter(eventFlow.EventListenerFilter()),
 		FlowSource:    req.FlowSource,
 		Enabled:       req.Enabled,
 		CreatedAt:     time.Now().UTC(),
@@ -108,11 +122,11 @@ func (h *EventListenerHandler) HandleEventListenersImport(c *handler.Context, re
 			Type:          model.EventListenerType(eventFlow.EventListenerType()),
 			Description:   eventFlow.EventDescription(),
 
-			Filter:      eventFlow.EventListenerFilter(),
-			FlowSource:  listener.FlowSource,
-			Enabled:     listener.Enabled,
-			CreatedAt:   time.Now().UTC(),
-			UpdatedAt:   time.Now().UTC(),
+			Filter:     convertEventListenerFilter(eventFlow.EventListenerFilter()),
+			FlowSource: listener.FlowSource,
+			Enabled:    listener.Enabled,
+			CreatedAt:  time.Now().UTC(),
+			UpdatedAt:  time.Now().UTC(),
 		})
 		if err != nil {
 			return nil, fmt.Errorf("failed to create event listener: %w", err)
@@ -136,7 +150,7 @@ func (h *EventListenerHandler) HandleEventListenerUpdate(c *handler.Context, req
 		Description: eventFlow.EventDescription(),
 		FlowSource:  req.FlowSource,
 		Enabled:     req.Enabled,
-		Filter:      eventFlow.EventListenerFilter(),
+		Filter:      convertEventListenerFilter(eventFlow.EventListenerFilter()),
 		UpdatedAt:   time.Now().UTC(),
 	}
 

@@ -24,7 +24,13 @@ type EventListener struct {
 	UpdatedAt     time.Time            `json:"updated_at"`
 }
 
-type EventListenerFilter struct{}
+type EventListenerFilter struct {
+	MessageReaction *EventListenerFilterMessageReaction `json:"message_reaction,omitempty"`
+}
+
+type EventListenerFilterMessageReaction struct {
+	Emoji string `json:"emoji,omitempty"`
+}
 
 type EventListenerGetResponse = EventListener
 
@@ -87,6 +93,16 @@ func EventListenerToWire(eventListener *model.EventListener) *EventListener {
 		return nil
 	}
 
+	var filter *EventListenerFilter
+	if eventListener.Filter != nil {
+		filter = &EventListenerFilter{}
+		if eventListener.Filter.MessageReaction != nil {
+			filter.MessageReaction = &EventListenerFilterMessageReaction{
+				Emoji: eventListener.Filter.MessageReaction.Emoji,
+			}
+		}
+	}
+
 	return &EventListener{
 		ID:            eventListener.ID,
 		Source:        string(eventListener.Source),
@@ -96,7 +112,7 @@ func EventListenerToWire(eventListener *model.EventListener) *EventListener {
 		AppID:         eventListener.AppID,
 		ModuleID:      eventListener.ModuleID,
 		CreatorUserID: eventListener.CreatorUserID,
-		Filter:        (*EventListenerFilter)(eventListener.Filter),
+		Filter:        filter,
 		FlowSource:    eventListener.FlowSource,
 		CreatedAt:     eventListener.CreatedAt,
 		UpdatedAt:     eventListener.UpdatedAt,

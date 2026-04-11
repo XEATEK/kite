@@ -206,6 +206,7 @@ type FlowNodeData struct {
 
 	// Event Entry
 	EventType string `json:"event_type,omitempty"`
+	Emoji     string `json:"emoji,omitempty"`
 
 	// Event Filter
 	EventFilterTarget EventFilterTarget `json:"event_filter_target,omitempty"`
