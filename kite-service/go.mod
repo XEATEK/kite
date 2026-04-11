@@ -68,7 +68,7 @@ require (
 	github.com/klauspost/cpuid/v2 v2.2.8 // indirect
 	github.com/knadh/koanf/maps v0.1.1 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
-	github.com/XEATEK/go-next-static v0.0.0-20240912153955-d431fbda6f18 // indirect
+	github.com/merlinfuchs/go-next-static v0.0.0-20240912153955-d431fbda6f18 // indirect
 	github.com/minio/md5-simd v1.1.2 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
@@ -103,4 +103,4 @@ require (
 
 replace github.com/XEATEK/kite/kite-web v0.0.0 => ../kite-web
 
-replace github.com/diamondburned/arikawa/v3 v3.4.0 => github.com/XEATEK/arikawa/v3 v3.4.1-0.20250903214413-e1ffc5e53352
+replace github.com/diamondburned/arikawa/v3 v3.4.0 => github.com/merlinfuchs/arikawa/v3 v3.4.1-0.20250903214413-e1ffc5e53352

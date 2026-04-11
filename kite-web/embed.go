@@ -8,7 +8,7 @@ import (
 	"io/fs"
 	"net/http"
 
-	gonextstatic "github.com/XEATEK/go-next-static"
+	gonextstatic "github.com/merlinfuchs/go-next-static"
 )
 
 //go:embed all:out
